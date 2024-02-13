@@ -1,0 +1,832 @@
+\documentclass[12pt]{article}
+%
+%
+% Bei Rückfragen: flog7877@gmail.com
+%
+%
+\usepackage{amsmath}
+%\usepackage{titling}
+\usepackage{mathbbol}
+\usepackage{amssymb}
+\usepackage{stmaryrd}
+\usepackage{tikz}
+\usepackage{tabularx}
+\usepackage{makecell}
+\usepackage[margin=1.0in]{geometry}
+\usepackage[export]{adjustbox} % Für vertikale Ausrichtung der Plots/ Tabellen
+% Kopf/ Fußzeile! ----
+\usepackage{fancyhdr}
+\usepackage{pdfpages}
+\usepackage{mathrsfs}
+\usepackage[ngerman]{babel}
+\usepackage{hyperref}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18, width=10cm}
+\lhead{Name (Mtrn.)}
+\chead{}
+\rhead{Astronomisches Praktikum WS 23/24}
+%
+\lfoot{}
+\cfoot{\thepage}
+\rfoot{}
+% --------------------
+%\setlength{\droptitle}{-9.5em}   
+%--------------------
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    }
+%--------------------
+\begin{document}
+\pagestyle{fancy}
+%
+\title{\huge{\textbf{Astronomisches Praktikum}}}%\vspace{-1.5ex}}
+\author{Name (Mtrn.)}
+\date{\large{\textbf{Protokoll}}}%\vspace{-4ex}}
+%
+\maketitle
+\thispagestyle{empty}
+\tableofcontents
+%
+\newpage
+\section{Sternspektren}
+\subsubsection*{Beschreibung}
+In diesem Kapitel bestand die Aufgabe darin, anhand der Spektrallinien verschiedener Sterne deren Eigenschaften zu bestimmen.
+\subsubsection*{Auswertung}
+Mit der gegebenen Normsequenz können wir die Sternspektren nach dem Harvard-System klassifizieren und deren Temperaturen bestimmen. Mit den in Tab. 3.1 gebenen Werten kann die Entfernung $d$ in $pc$ berrechnet werden:
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{c|c|c|c|c|c|c}
+        Stern & LK & Spektraltyp & $T_{\textnormal{eff}}/K$ & $\pi / ''$ & $d/pc$ & $m_V/mag$ \\ \hline
+        1 & V & G1 & 5928 & 0,182 & 5,494505 & 3,6 \\ 
+        2 & III & F2 & 7472 & 0,028 & 35,71429 & 5,4 \\ 
+        3 & V & A3 & 9060 & 0,123 & 8,130081 & 0,1 \\
+        4 & V & K4 & 4284 & 0,292 & 3,424658 & 5,2 \\ 
+        5 & IV & G8 & 5148 & 0,108 & 9,259259 & 3,5 \\ 
+        6 & III & A5 & 8500 & 0,056 & 17,85714 & 2,1 \\ 
+        7 & I & B2 & 23000 & 0,014 & 71,42857 & 2,8 \\ 
+        8 & V & F9 & 6140 & 0,077 & 12,98701 & 4,2 \\ 
+        9 & V & KO & 4900 & 0,179 & 5,586592 & 4,7 \\ 
+        10 & III & F1 & 7236 & 0,015 & 66,66667 & 3,8 \\ 
+        11 & V & K2 & 4592 & 0,303 & 3,30033 & 3,8 \\ 
+        12 & V & G9 & 5024 & 0,11 & 9,090909 & 5,5 \\ 
+        13 & I & K9 & 3610 & 0,013 & 76,92308 & 4 \\ 
+        14 & III & B1 & 25500 & 0,021 & 47,61905 & 2,9 \\ 
+    \end{tabular}
+\end{table} \\
+Nun können wir die absolute Helligkeit $M_V$ berechnen und die visuelle Helligkeit $M_V$ zur bolometrischen Helligkeit $M_{\textnormal{bol}}$ korrigieren. Es gilt:\\
+\[M_V = m_V + 5 - 5\log d\] \\
+Wir erhalten dann mithilfe der in Tab. 3.2 gegebenen Richtwerte für die Bolometrische Korrektur der verschiedenen Spetraltypen und Leuchtkraftklassen folgende Ergebnisse:\\
+\newpage\noindent\begin{table}[!ht]
+    \centering
+    \begin{tabular}{c|c|c}
+        Stern & $M_V$ & $M_{\textnormal{bol},\star}$ \\ \hline
+        1 & 4,34 & 4,302 \\ 
+        2 & 6,953 & 6,905 \\ 
+        3 & 1,01 & 0,778 \\ 
+        4 & 5,735 & 5,749 \\
+        5 & 4,467 & 4,345 \\
+        6 & 3,352 & 3,232 \\ 
+        7 & 4,654 & 1,054 \\ 
+        8 & 5,314 & 5,29 \\ 
+        9 & 5,447 & 5,267 \\ 
+        10 & 5,624 & 5,56 \\ 
+        11 & 4,319 & 3,971 \\ 
+        12 & 6,459 & 6,301 \\ 
+        13 & 5,886 & 4,126 \\ 
+        14 & 4,578 & 1,398 \\ 
+    \end{tabular}
+\end{table}\\
+Durch Umstellen von Gl. 3.8.:
+\[\frac{L_*}{L_{\odot}} = 10^{-0,4(M_{\textnormal{bol},\star}-M_{\textnormal{bol},\odot})}\]\\
+Wobei $M_{\textnormal{bol},\odot} = +4,74$ gegeben war. Zu Letzt war mit Hilfe der bestimmten $L_\star$ und $T_{\textnormal{eff}}$ über Gl. 3.11 er Radius des Sterns in Sonnenradien zu bestimmen, mit einer gegeben Sonnentemperatur von $T_{\textnormal{eff},\odot} = 5800K$ erhalten wir:
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{c|c|c|c}
+        Stern & $L_\star / L_\odot$ &$R_\star / R_\odot$& $R_\star / km$ \\ \hline
+        1 & 1,497 & 1,171 & 878446,1 \\ 
+        2 & 0,136 & 0,222 & 166753,6 \\ 
+        3 & 38,438 & 2,541 & 1905644 \\ 
+        4 & 0,395 & 1,152 & 863962,5 \\ 
+        5 & 1,439 & 1,523 & 1142155 \\ 
+        6 & 4,011 & 0,933 & 699386,1 \\ 
+        7 & 29,816 & 0,347 & 260427,7 \\ 
+        8 & 0,603 & 0,693 & 519611,4 \\ 
+        9 & 0,615 & 1,099 & 824319,7 \\ 
+        10 & 0,47 & 0,44 & 330322,7 \\ 
+        11 & 2,031 & 2,274 & 1705305 \\ 
+        12 & 0,238 & 0,65 & 487187,9 \\ 
+        13 & 1,76 & 3,425 & 2568571 \\ 
+        14 & 21,721 & 0,241 & 180834,3 \\ 
+    \end{tabular}
+\end{table}
+\newpage\noindent\subsubsection*{Fazit}
+Was man alles aus einem kleinen Datensatz von Spektrallinien lernen kann ist wahnsinnig faszinierend. Allerdings ist die Arbeit mit Stift und Papier anfällig für Fehler, so können bei der Auswertung Abweichungen durch Messungenauigkeiten entstehen.\\
+\section{Cepheiden}
+\subsubsection*{Beschreibung}
+Ziel dieses Versuches war es, anhand von Helligkeitsmaxima- und Minima sowie Perioden $P$ von Cepheiden die Größe des Universums zu berechnen.
+\subsubsection*{Auswertung}
+Die Maxima und Minima liesen sich in Abb. 4.1 anhand der Lichtkurven von vier Cepheiden ablesen, so sind ebenfalls die Perioden $P$ zu bestimmen. Zu berechnen war außerdem $\log P$ sowie die scheinbare Helligkeit $m$ durch
+\[m = \frac{1}{2}(m_{\textnormal{max}}+m_\textnormal{min})\]\\
+Wir erhalten:
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{c|l|c|c|c|c|c}
+        Nummer & HV Catalog & Periode $P/d$ & $\log P$ & $m_{\textnormal{max}}/ mag$ &$m_{\textnormal{min}} / mag$ & $m / mag$ \\ \hline 
+        1 & HV 837 & 42 & 1,623 & 13,65 & 12,65 & 13,15 \\ 
+        2 & HV 1967 & 28,5 & 1,454 & 13,9 & 13,05 & 13,475 \\ 
+        3 & HV 843 & 15 & 1,176 & 14,3 & 14,35 & 14,325 \\
+        4 & HV 2063 & 11,5 & 1,061 & 14,8 & 14,13 & 14,465 \\
+    \end{tabular}
+\end{table}\\
+Zusammen mit Tab. 4.1 werden die Daten nun in ein $\log P$-$m$-Diagramm eingetragen. Für die Datengruppen ist jeweil eine Ausgleichsgerade der Form $m=a_1 \cdot \log P + b_1$ bzw. $M=a_2 \cdot \log P + b_2$ zu bestimmen.\\\\
+Man kann die Werte nach dem Eintragen der Daten ablesen, wenn man eine Ausgleichsgerade eingezeichnet hat. So erhält man für
+\[\begin{aligned}
+    m: &-2,46 x + 17.2\\\\
+    M: & -3.52 x - 0.6
+\end{aligned}\]
+\newpage\noindent
+%\begin{tikzpicture}
+%    \begin{axis}
+%        \addplot[color=red]{x^2};
+%
+%    \end{axis}
+%\end{tikzpicture}
+\begin{figure}[h!]
+    \centering
+\begin{tikzpicture}
+    \begin{axis}[xmajorgrids=true, ymajorgrids=true, ytick={-7, -5, 0, 5, 10, 15, 17}, xlabel=$\log P$, ylabel=$m$]
+        \addplot[color=red, only marks,  mark=*]coordinates{(1.52, 13.4)(0.35, 16.3)(1.44, 13.8)(0.45, 16.1)(0.63, 15.6)(1.63, 13.1)(1.11, 14.7)(1.70, 13.1)(1.22, 13.8)(0.71, 15.6)(0.81, 15.2)(0.50, 16.0)(0.21, 16.8)(0.30, 16.7)(0.41, 16.0)(1.01, 14.3)(1.6, 13.6)(1.623, 13.15)(1.454, 13.475)(1.176, 14.325)(1.061, 14.465)};
+        \addplot[color=red, dashed, domain=0.21: 1.7]{-2.4574*x+17.202} node[right, pos=1]{$m$};
+        \addplot[color=blue, only marks, mark=*]table[meta=M]{kap4.txt} node[right, pos=1]{$M$};
+        \addplot[color=blue, dashed, domain=0.29:1.65]{-3.516*x-0.6008};
+    \end{axis}
+\end{tikzpicture}
+\caption[short]{$\log P$-$m$-Diagramm, $m$ und $M$ gegen $\log P$ aufgetragen}
+\end{figure}\\
+Mit diesen Werten kann nun der Abstand beider Geraden gemittelt werden. Da sie nicht parallel verlaufen, müssen mindestens zwei Werte genommen werden. Mit den Stellen $\log P = 1$ und $\log P = 2$ erhält man:\\
+\[\begin{aligned}
+    m_1-M_1 =  18,86\\\\
+    m_2 - M_2 = 19,92
+    \end{aligned}\]
+Dies ergibt gemittelt $m-M = 19.39$. Über Gl. 4.1 mit dieser Helligkeitsdifferenz die Entfernung $d$ der SMC in $pc$ berechnet werden:
+\[d=10\cdot \Bigl(\frac{m-M+5}{5}\Bigr) \cdot 1pc = 48,78 kpc\]\\
+Anhand der Messung erhalten wir also einen Abstand $d = 48,78 kpc$, was zum Literaturwert $d \approx 61 kpc$ eine Abweichung von ungefähr $20 \%$ ist. Setzt man nun für $M-1,5$ in diese Gleichung ein (anstelle von $M$), erhält man $d_2 = 45,78kpc$, der Wert verändert sich also um den Faktor $\approx 0,949$.
+\subsubsection*{Fazit}
+Mit meiner Messung weiche ich $20 \%$ vom Literaturwert ab. Dies kann verschiedene Ursachen haben, wie zum Beispiel das ungenaue Messen der Minima und Maxima oder eine ungenaue Abstandsmessung von $m$ und $M$ (Mittelung mit zu wenigen Punkten).
+\newpage\noindent
+\section{Das Hubble-Gesetz}
+\subsubsection*{Einführung}
+Als nächstes wird die Hubblekonstante $H$, sowie das Weltalter $T$ und der Weltradius $R$ bestimmt anhand von Galaxiedurchmesser und Galaxiespektren.
+\subsubsection*{Auswertung}
+Zunächst wird der Durchmesser $\alpha$ der Galaxien vermessen, mit dem Umrechnungsfaktor $6,97674419\ ''/ mm$ (berechnet durch den Maßstab). 
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{l|c|c|c}
+        Galaxie & $\alpha / mm$ & $\alpha / ''$ & $\alpha / \circ$ \\ \hline    
+        Virgo & 18,5 & 129,0697674 & 0,035852713 \\ 
+        Ursa Major & 5,5 & 38,37209302 & 0,010658915 \\ 
+        Corona Borealis & 2 & 13,95348837 & 0,003875969 \\ 
+        Bootes & 1 & 6,976744186 & 0,001937984 \\ 
+        Hydra & 0,88 & 6,139534884 & 0,001705426 \\ 
+    \end{tabular}
+\end{table}\\
+Als nächstes wird die Dispersion berechnet, indem jeweils die Differenz der Ruhenwellenlängen durch den realen Abstand teilt und das Ergebnis mittelt.
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{c|c|c|c|c}
+    Linie $n$ & $\lambda_0 / \mathring{A}$ & $\lambda_{n, 0}- \lambda_{a, 0}$ & $n-a / mm$ & $\displaystyle\frac{\lambda_{n, 0}-\lambda_{a, 0}}{n-a}/\mathring{A} \cdot mm^{-1}$\\ \hline
+        a & 3888,7 & 0 & 0 & ~ \\ 
+        b & 3964,7 & 76 & 4,5 & 16,8888889 \\ 
+        c & 4026,2 & 137,5 & 8 & 17,1875 \\ 
+        d & 4143,8 & 255,1 & 14,5 & 17,5931034 \\ 
+         e & 4471,5 & 582,8 & 33,5 & 17,3970149 \\ 
+        f & 4713,1 & 824,4 & 47,5 & 17,3557895 \\
+        g & 5015,7 & 1127 & 65,5 & 17,2061069 \\
+    \end{tabular}
+\end{table} \\
+Gemittelt ergibt sich so ein Dispersion von $17,27 \mathring{A} mm^{-1}$. Mithilfe dieser können wir nun die gemessenen Abstände $K$-$a$ und $H$-$a$ in Wellenlängen umrechnen.
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{l|c|c|c|c}
+        Galaxie & $|K-a|/mm$ & $|H-a|/mm$ & $\lambda_K / \mathring{A}$ & $\lambda_H / \mathring{A}$ \\ \hline
+        Virgo & 3,5 & 5,5 & 3949,149902 & 3983,6927 \\ 
+        Ursa Major & 13,5 & 15,5 & 4121,863908 & 4156,40671 \\ 
+        Corona Borealis & 20 & 22,5 & 4234,128012 & 4277,30651 \\ 
+        Bootes & 32 & 34,5 & 4441,384819 & 4484,56332 \\ 
+        Hydra & 48,5 & 51,5 & 4726,362929 & 4778,17713 \\ 
+    \end{tabular}
+\end{table}\\
+Mit $\frac{v}{c} = \frac{\lambda - \lambda_0}{\lambda_0}$ können wir für die $Ca$-$II$-Linien die Fluchtgeschwindigkeit berechnen und mitteln. Gegeben sind die Lichtgeschwindigkeit $c \approx 3 \cdot 10^5 kms^{-1}$ sowie die Ruhenwellenlängen $\lambda_{H,0} = 3968,5 \mathring{A}$ und $\lambda_{K,0} = 3933,7 \mathring{A}$.
+\newpage\noindent
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{l|c|c|c|c}
+        Galaxie & $v_K / kms^{-1}$ & $v_H / kms^{-1}$ & $v$ gemittelt in $kms^{-1}$ & $v$ gemittelt in $ms^{-1}$\\ \hline
+        Virgo & 1178,272525 & 1148,497163 & 1163,384844 & 1163384,84 \\ 
+        Ursa Major & 14350,14679 & 14204,86652 & 14277,50666 & 14277506,7 \\
+        Corona Borealis & 22911,86507 & 23344,32507 & 23128,09507 & 23128095,1 \\ 
+        Bootes & 38718,11419 & 39011,96831 & 38865,04125 & 38865041,2 \\
+        Hydra & 60451,70673 & 61207,79622 & 60829,75147 & 60829751,5 \\
+    \end{tabular}
+\end{table}\\
+Nun soll angenommen werden, dass die gezeigten Galaxien einen tatsächlichen Durchmesser von $s = 0,02 Mpc$ haben., daraus folg:
+\[d = \frac{s}{\tan \alpha}\]
+Damit $d$ in $Mpc$ und weiter umgerechnet in $m$:
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{c|c|c}
+        Galaxie & $d / Mpc$ & $d /m$ \\ \hline
+        Virgo & 31,96174959 & 9,88$\cdot 10^{23}$ \\ 
+        Ursa Major & 107,507716 & 3,32$\cdot 10^{24}$ \\ 
+        Corona Borealis & 295,6462218 & 9,14$\cdot 10^{24}$ \\ 
+        Bootes & 591,2924443 & 1,83$\cdot 10^{25}$ \\ 
+        Hydra & 671,9232323 & 2,08$\cdot 10^{25}$\\ 
+    \end{tabular}
+\end{table}\\
+Bestimmen der Hubblekonstante durch Steigung der Ausgleichsgerade:
+\begin{figure}[h!]
+    \centering
+\begin{tikzpicture}
+    \begin{axis}[xmajorgrids=true, ymajorgrids=true, ylabel=$v / kms^{-1}$, xlabel=$d / MPc$]
+        \addplot[color=blue, only marks, mark=*]table[meta=kms]{hubble1.txt};
+        \addplot[color=blue, dashed, domain=0:700]{78.804*x+738.02};
+    \end{axis}
+\end{tikzpicture}
+\caption[short]{Hubble-Diagramm}
+\end{figure}
+\newpage\noindent
+Die Steigung der Ausgleichsgeraden und damit die Hubblekonstante $H$ betägt $78,804 \frac{kms^{-1}}{MPc}$.\\\\
+Nun können wir das Weltalter $T$ mit Gl. 5.3 sowie den Weltenradius $R$ mit Gl. 5.4 des sichtbaren Universums berechnen, wobei $1pc \approx 3,09 \cdot 10^{16}m$ und $1a \approx \pi \cdot 10^7 s$.
+\[\begin{aligned}
+    T &= \frac{1}{H} = 1,061 \cdot 10^{21}a \\\\
+    R &= \frac{c}{H} = 1 \cdot 10^{23} km
+\end{aligned}\]
+\subsubsection*{Fazit}
+Der Literaturwert von 2016 für die Hubblekonstante der Praktikumsunterlagen beträgt $73,00 \pm 1,75 \frac{kms^{-1}}{MPc}$. Dies ist eine Abweichung zu dem erzielten Ergebnis von ungefähr $7 \%$. Die Messung dieser Konstanten ist allerdings generell sehr fehleranfällig, so gab es in der Geschichte eine breite Verschiedenheit an Werten.
+\section{Die Jupitermasse}
+\subsubsection*{Beschreibung}
+In diesem Kapitel soll die Jupitermasse mithilfe des Gravitationsgesetzes sowie den Galileischen Monden bestimmt werden. Dabei wird angenommen, dass sich die Monde auf einer stabilen Kreisbahn um den Jupiter bewegen.
+\subsubsection*{Auswertung}
+Es liegen Aufnahmen  der Monde Io, Europa, Ganymed und Kallisto vor. Für jeden Mond wird der Abstand zum Jupiter bestimmt und eine sinusförmige Ausgleichsfunktion zur Bestimmung des Maximums (also der größten Elongation $x_0$) auf das jeweilige Diagramm gelegt:
+\[\vartheta_1 = \arccos \Bigl(\frac{x_1}{x_0}\Bigr) \ \textnormal{und} \ \vartheta_2 = \arccos \Bigl(\frac{x_2}{x_0}\Bigr)\]
+Mit diesen Gleichungen lassen sich die Winkel $\vartheta_{1,2}$ bestimmen, $x_{1,2}$ sind je ein Messpunkt links und rechts vom Maximum. Damit berechnet wird $\Delta \vartheta$ und $\Delta t$ (was dem Zeitabstand der gewählten Punkte $x_{1,2}$ entspricht). Für jeden Mond trage also den Abstand zum Jupiter zur jeweiligen Zeitmessung ein.\\
+\newpage\noindent
+\textbf{Mond Io}\\
+\begin{minipage}{.4\linewidth}
+    \vspace*{-1cm}\begin{tabular}{c|c}
+            Abstand $/ mm$ & Fortl. Zeit $/h$ \\ \hline
+            8,5 & 2 \\ 
+            11 & 4 \\ 
+            12,5 & 6 \\ 
+            13 & 7 \\ 
+            13 & 8 \\ 
+            12 & 10 \\ 
+            11,5 & 11 \\ 
+            10 & 12 \\ 
+    \end{tabular}
+\end{minipage}
+\begin{minipage}{.5\linewidth}
+    \centering
+\begin{tikzpicture}
+    \begin{axis}[xmajorgrids=true, ymajorgrids=true, ymin=0, ymax=14, ylabel=Abstände/$mm$, xlabel=Zeit/$h$, width=10cm]
+        \addplot[color=blue, only marks, mark=*]table[meta=io]{io.txt};
+        \addplot[color=blue, dashed, samples=100, domain=2:12]{13*sin(0.161*deg(x+2.2))+0.12};
+    \end{axis}
+\end{tikzpicture}
+\end{minipage}\\
+Mit den Werten $x_0 = 13mm$, $x_1 = 8,5mm$ und $x_2 = 10mm$ lässt sich nun $\Delta \vartheta$ berechnen: Wir erhalten $\vartheta_1 = 49,17^\circ$ und $\vartheta_2 = 39,72^\circ$. Damit $\Delta \vartheta = 88,88^\circ$ bei $\Delta t = 10s$.\\\\
+%%%
+\textbf{Mond Europa}\\
+\begin{minipage}{.4\linewidth}
+    \vspace*{-1cm}\begin{tabular}{c|c}
+    Abstand $/mm$ & Fortl. Zeit $/h$ \\ \hline
+    19 & 2 \\
+    20 & 4 \\ 
+    21 & 6 \\ 
+    21,5 & 8 \\ 
+    22 & 10 \\ 
+    21,9 & 12 \\ 
+    7 & 26 \\ 
+    3 & 30 \\ 
+\end{tabular}
+\end{minipage}
+\begin{minipage}{.5\linewidth}
+    \centering
+\begin{tikzpicture}
+    \begin{axis}[xmajorgrids=true, ymajorgrids=true, ymin=0, ymax=24, ylabel=Abstände/$mm$, xlabel=Zeit/$h$, width=10cm]
+        \addplot[color=blue, only marks, mark=*]table[meta=europa]{europa.txt};
+        \addplot[color=blue, dashed, samples=100, domain=2:30]{23.1*sin(0.07*deg(x+12.5))-1};
+    \end{axis}
+\end{tikzpicture}
+\end{minipage}\\
+Wähle $x_0 = 23,1mm$, $x_1 = 19mm$ und $x_2 = 7mm$ und berechne $\vartheta_{1,2}:$ $\vartheta_1 = 34,66^\circ$, $\vartheta_2 = 72,36^\circ$. Damit $\Delta \vartheta = 107,02^\circ$ bei $\Delta t= 24s$. 
+%%%
+\newpage\noindent
+\textbf{Mond Ganymed}\\
+\begin{minipage}{.4\linewidth}
+    \vspace*{-1cm}\begin{tabular}{c|c}
+    Abstand $/mm$ & Fortl. Zeit $/h$ \\ \hline
+    4 & 5,17 \\
+    11 & 10,75 \\ 
+    31 & 30 \\ 
+    33 & 33,75 \\ 
+    35 & 51,33 \\ 
+    16 & 74,83 \\ 
+    11,5 & 78,75 \\ 
+    6 & 82,92 \\ 
+\end{tabular}
+\end{minipage}
+\begin{minipage}{.5\linewidth}
+    \centering
+\begin{tikzpicture}
+    \begin{axis}[xmajorgrids=true, ymajorgrids=true, ymin=0, ymax=40, ylabel=Abstände/$mm$, xlabel=Zeit/$h$, width=10cm]
+        \addplot[color=blue, only marks, mark=*]table[meta=ganymed]{ganymed.txt};
+        \addplot[color=blue, dashed, samples=100, domain=5.17:82.92]{36.2*sin(0.0367*deg(x-2))};
+    \end{axis}
+\end{tikzpicture}
+\end{minipage}\\
+Mit $x_0 = 36,2mm$, $x_1 = 11mm$ und $x_2 = 16mm$ sind $\vartheta_1 = 72,31^\circ$ und $\vartheta_2 = 63,77^\circ$. Damit $\Delta \vartheta = 136.08 ^\circ$ bei $\Delta t = 64,08s$.\\\\
+%%%
+\textbf{Mond Kallisto}\\
+\begin{minipage}{.4\linewidth}
+    \vspace*{-1cm}\begin{tabular}{c|c}
+    Abstand $/mm$ & Fortl. Zeit $/h$ \\ \hline
+    25 & 5,75 \\ 
+    43 & 29,17 \\ 
+    55,5 & 54 \\ 
+    57,5 & 98,83 \\ 
+    55 & 107 \\ 
+    28,5 & 147,25 \\ 
+    8,5 & 170,68 \\ 
+    5 & 175 \\ 
+\end{tabular}
+\end{minipage}
+\begin{minipage}{.5\linewidth}
+    \centering
+\begin{tikzpicture}
+    \begin{axis}[xmajorgrids=true, ymajorgrids=true, ymin=0, ymax=65, ylabel=Abstände/$mm$, xlabel=Zeit/$h$, width=10cm]
+        \addplot[color=blue, only marks, mark=*]table[meta=kallisto]{kallisto.txt};
+        \addplot[color=blue, dashed, samples=100, domain=5.75:175]{60*sin(0.0155*deg(x+22))};
+    \end{axis}
+\end{tikzpicture}
+\end{minipage}\\
+Die gewählten Werte $x_0 = 60mm$, $x_1 = 43mm$ und $x_2 = 8,5mm$ ergeben $\vartheta_1 = 44.3^\circ$  und $\vartheta_2 = 81.86^\circ$. Damit $\Delta \vartheta = 126.08^\circ$ bei $\Delta t = 141.51s$.\\\\
+Nun wird die Orbitalperiode der Monde berechnet. Dafür verwenden wir Gl. 6.4: $\displaystyle T = 360 \cdot \frac{\Delta t}{\Delta  \vartheta}$
+\newpage\noindent
+Damit ergeben sich für die einzelnen Monde:
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{c|c}
+        Mond & Umlaufzeit $T /s$ \\ \hline
+        Io & 40,5 \\ 
+        Europa & 80,73 \\ 
+        Ganimed & 169,52 \\ 
+        Kallisto & 404,06 \\ 
+    \end{tabular}
+\end{table}\\
+Mit dem Abstand Erde-Jupiter von $d = 6,88 \cdot 10^{11}m$ und den maximalen Elongationen $x_0$ kann nun ein Sichtwinkel $\alpha$ berechnet werden. Es gilt: $\displaystyle r = d \cdot \tan (\alpha)$. Geometrisch ergibt sich folgende Situation (Bildquelle: Dr. Chris Tenzer, Aufgabenblatt Kap. 6):\\
+\begin{figure}[h!]
+    \centering
+    \includegraphics*[width=15cm]{sehwinkel.png}
+    \caption[short]{Geometrie der Sehwinkelbestimmung}
+\end{figure}\\
+Ebenfalls benötigen wir den zugehörigen Kalibrationsfaktor. Nach der Berechnung aller Radien kann dann jeweils die Jupitermasse besimmt werden, dazu wird Gl. 6.1 benutzt:\\
+\[M = \frac{4 \pi^2}{G} \cdot \frac{r^3}{T^2}\]\\
+wobei $G= 8,65 \cdot 10^{-4}m^3kg^{-1}s^{-2}$. Die Ergebnisse aller vier Monde zusammengefasst:
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{c|c|c|c}
+        Mond & $\alpha / ''$ & $r /km$ & Jupitermasse $M /kg$ \\ \hline
+        Io & 0,000578 & 398000 & $1,75 \cdot 10^{27}$\\
+        Europa & 0,001027 & 706000 & $2,47 \cdot 10^{27}$\\ 
+        Ganymed & 0,001489 & 1020000 & $1,71 \cdot 10^{27}$\\ 
+        Kallisto & 0,002521 & 1730000 & $1,43 \cdot 10^{27}$ \\ 
+    \end{tabular}
+\end{table}\\
+Nach dem Mitteln dieses Wertes ergibt sich eine Masse von $M=1,84 \cdot 10^{27}kg$.
+\subsubsection*{Fazit}
+Das Ergebnis weicht vom Literaturwert $M_{\textnormal{Jup}} = 1,90 \cdot 10^{27}kg$ um nur $3,16 \%$ ab. Diese Abweichung lässt sich zum Beispiel durch die Annahme einer stabilen Kreisbahn oder ungenauen Ausgleichsfunktionen erklären.
+\newpage\noindent
+\section{Merkurrotation}
+\subsubsection*{Beschreibung}
+Durch Zeitverzögerung des Radarechos soll die Merkurrotation bestimmt werden.
+\subsubsection*{Auswertung}
+Zunächst wurden die Abstände der Intensitätsmaxima zur eingezeichneten Nulllinie gemessen und die $x$-Achse zur Kalibration vermessen. Dann werden die links- und rechtsseitigen Maxima gemittelt und anhand der Kalibration in $\textnormal{Hz}$ umgerechnet. Abb. 7.3 zeigt $5$ Zeitverzögerungen bei $f=430\textnormal{MHz}$. Auswertung:
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{c|c|c|c|c}
+        $\Delta t / s$ & $\leftarrow$Max. $/ mm$ & Max.$\rightarrow$ $/ mm$ & Gemittelt $/mm$ & Kalibration $/$ Hz \\ \hline
+        0,00012 & 11 & 17 & 14 & 1,12 \\
+        0,00021 & 14 & 21 & 17,50 & 1,40 \\ 
+        0,0003 & 20 & 25 & 22,50 & 1,80 \\ 
+        0,00039 & 22 & 30 & 26 & 2,08 \\ 
+    \end{tabular}
+\end{table}\\
+Ebenfalls kann jeweils der Versatz $\displaystyle d = 0,5\cdot\Delta t \cdot c$ mit $c \approx 3 \cdot 10^8 ms^{-1}$ berechnet werden. Angegeben ist auch der Radius des Merkurs $R \approx 2,44 \cdot 10^6 m$, damit können die geometrischen Größen $x$ und $y$ bestimmt werden (Gl. 7.2): $x = R - d$ und $y= \sqrt{R^2-x^2}$.\\
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{c|c|c|c}
+        $\Delta t / s$ & $d \ m$ & $x / m$ & $y / m$ \\ \hline
+        0,00012 & 1,8$\cdot 10^{4}$ & 2,42$\cdot 10^{6}$ & 2,96$\cdot 10^{5}$ \\ 
+        0,00021 & 3,13$\cdot 10^{4}$ & 2,41$\cdot 10^{6}$ & 3,91$\cdot 10^{5}$ \\ 
+        0,0003 & 4,5$\cdot 10^{4}$ & 2,4$\cdot 10^{6}$ & 4,66$\cdot 10^{5}$ \\ 
+        0,00039 & 5,85$\cdot 10^{4}$ & 2,38$\cdot 10^{6}$ & 5,31$\cdot 10^{5}$ \\ 
+    \end{tabular}
+\end{table}\\
+Aufgrund der Rotation des Merkurs wird der Radarimpuls zweimal dopplerverschoben, $\Delta f$ entspricht somit der halben gemittelten Signalbreite. Mit Gl. 7.4 kann die Radialgeschwindigkeit $v_0$ für jede Reflektionsregion bestimmt werden. Ausßerdem kann dann mit Gl. 7.3 $v$ für jede Region bestimmt und gemittelt werden. Es gilt:
+\[\frac{v_0}{c} = \frac{0,5 \cdot \Delta f}{f} \Leftrightarrow v_0 = c \cdot \frac{0,5 \cdot \Delta f}{f} \ \ \textnormal{und} \ \ \frac{v}{v_0} = \frac{R}{y} \Leftrightarrow v = v_0 \cdot \frac{R}{y}\]\\
+Für die vier Messungen ergibt sich damit:
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{c|c|c}
+        $\Delta t / s$ & $v_0 / ms^{-1}$ & $v / ms^{-1}$ \\ \hline
+        0,00012 & 3,91 & 3,22 \\
+        0,00021 & 4,88 & 3,05 \\ 
+        0,0003 & 6,28 & 3,28 \\ 
+        0,0003 & 7,26 & 3,33 \\ 
+    \end{tabular}
+\end{table}\\
+Nun wird die Geschwindigkeit gemittelt mit dem Ergebnis $v = 3,22 ms^{-1}$.
+\newpage\noindent
+Damit lässt sich nun die Rotationsperiode $P$ berechnen, es gilt:
+\[P = \frac{2\pi R}{v}\]\\
+Mit den ermittelten Werten erhält man $P = 4,76 \cdot 10^6s$ bzw $55,12d$. Zu berechnen bleibt nun der Abstand Arecibo-SRP zum Zeitpunk der Messung. Das Radarsignal wurde nach $t= 616,125s$ wieder empfangen. Offensichtlich gilt $v=\frac{s}{t}$ bzw. $s= v \cdot t$, wobei sich das Signal mit der Lichtgeschwindigkeit $c$ bewegt. Zu beachten ist hierbei noch, dass in der Zeit $t$ der Radarimpuls die doppelte Strecke zurückgelegt hat. Damit nun Abstand $a$:
+\[c = \frac{a}{0,5 \cdot t} \Leftrightarrow a = 0,5 \cdot t \cdot c = 9,24\cdot 10^{10}m\]\\
+Damit liegt Abstand $a = 9,24 \cdot 10^{10}m$ bzw. $0,618au$ im Intervall des Literaturwertes.\\
+\subsubsection*{Fazit}
+Die Abweichung für die Rotationsperiode zum Literaturwert $P_{\textnormal{Merkur}} = 58,65d$ beträgt ca. $6,05\%$. Der ermittelte Abstand liegt im Bereich des tatsächlich gemessenen größten und kleinsten Abstandes und ist damit realistisch. Allerdings war die Auswertung mühsam, da die Grafik stellenweise schwer zu interpretieren war.
+\section{Galaxktische Rotation}
+\subsubsection*{Beschreibung}
+Ziel dieses Kapitels war es, eine gebenene Galaxie graphisch darzustellen.
+\subsubsection*{Auswertung}
+In Abb. 8.6 sind $21cm$-Profile verschiedener Sichtlinien zu sehen, welche jeweil einen Abstand von $\Delta l = 5^\circ$ haben. Es werden in allen Profilen mit $0^\circ < l < 180^\circ$ die Abstände $A$ der deutlichsten linksseitigen Maxima relativ zur $y$-Achse und in allen Profilen $180^\circ < l < 360^\circ$  die Abstände der deutlichsten rechtsseitigen Maxima gemessen. Mithilfe der Kalibrationsskala ($s= 8,69 kms^{-1}$) kann dann mit den Abständen die jeweilige Geschwindigkeit in $kms^{-1}$ berechnet werden.
+Betrachte Gl. 8.2 für jedes Maximum: $v_{\textnormal{rel}} = R_0  \sin l \cdot (\omega_1- \omega_0)$. Nach den Unterlagen (S. 28) gilt bei der Sonne als Bezugssystem: $R_0 = 10 kpc$ und $\omega_0 = 25 kms^{-1}kpc^{-1}$. Aus der Rotationskurve (Abb 8.4) kann der Zentrumsabstand $R_1$ abgelesen werden, ausßerdem wird eine lineare Approximation der Rotationskurve durchgeführt, falls die Werte $\omega_1$ nicht zu weit auseinander liegen (mit einer Steigung von $m=-2,857$).
+\newpage\noindent
+\begin{minipage}{.5\textwidth}
+    \begin{tabular}{c|c|c|c|}
+        $A / mm$ & $l /\circ$ & $v_{\textnormal{rel}} / kms^{-1}$ & $\omega / kms^{-1}kpc^{-1}$ \\ \hline
+        5 & 90 & -43,4783 & 20,65217391 \\ 
+        5 & 95 & -43,4783 & 20,63556592 \\ 
+        6,5 & 100 & -56,5217 & 19,26063219 \\ 
+        6,5 & 105 & -56,5217 & 19,14843898 \\ 
+        5,5 & 110 & -47,8261 & 19,91045413 \\ 
+        5,5 & 115 & -47,8261 & 19,72297517 \\ 
+        5,5 & 120 & -47,8261 & 19,47751916 \\ 
+        4,5 & 125 & -39,1304 & 20,22305596 \\ 
+        5,5 & 130 & -47,8261 & 18,75674775 \\ 
+        5 & 135 & -43,4783 & 18,85124538 \\ 
+        4,5 & 140 & -39,1304 & 18,91238503 \\ 
+        3,5 & 145 & -30,4348 & 19,69385758 \\ 
+        3,5 & 150 & -30,4348 & 18,91304348 \\ 
+        3 & 155 & -26,087 & 18,82730022 \\ 
+        2,5 & 160 & -21,7391 & 18,64390348 \\ 
+        2 & 165 & -17,3913 & 18,28051599 \\ 
+        1 & 170 & -8,69565 & 19,99237349 \\ 
+        0 & 175 & 0 & 25 \\ 
+        0 & 180 & 0 & 25 \\ 
+        0,5 & 185 & 4,347826 & 20,01142902 \\ 
+        1 & 190 & 8,695652 & 19,99237349 \\ 
+        1,5 & 195 & 13,04348 & 19,96038699 \\ 
+        3 & 200 & 26,08696 & 17,37268417 \\ 
+        2 & 205 & 17,3913 & 20,88486681 \\ 
+        4,9 & 210 & 42,6087 & 16,47826087 \\ 
+        3,8 & 215 & 33,04348 & 19,23904537 \\ 
+        6,5 & 220 & 56,52174 & 16,20677837 \\ 
+        1,8 & 225 & 15,65217 & 22,78644834 \\ 
+        4,5 & 230 & 39,13043 & 19,89188452 \\ 
+        3 & 235 & 26,08696 & 21,81537064 \\ 
+        2,5 & 240 & 21,73913 & 22,48978144 \\ 
+        2 & 245 & 20 & 22,79324416 \\ 
+        2,1 & 250 & 18,26087 & 23,05671885 \\ 
+        2 & 255 & 17,3913 & 23,19951969 \\ 
+        1,5 & 260 & 13,04348 & 23,67553051 \\ 
+        0,9 & 265 & 7,826087 & 24,21440187 \\ 
+        0,5 & 270 & 4,347826 & 24,56521739 \\ 
+        0,5 & 275 & 4,347826 & 24,56355659 \\ 
+        6,5 & 280 & 56,52174 & 19,26063219 \\ 
+        9,5 & 285 & 82,6087 & 16,44771851 \\ 
+        - & 290 & 0 & 25 \\ 
+        8,5 & 295 & 73,91304 & 16,84459799 \\ 
+        5,5 & 300 & 47,82609 & 19,47751916 \\ 
+        4 & 305 & 34,78261 & 20,75382752 \\ 
+    \end{tabular}
+\end{minipage}
+\begin{minipage}{.5\textwidth}
+    \vspace*{-8.15cm}\begin{tabular}{|c|c|c|c}
+        $A/ mm$ & $l /\circ$ & $v_{\textnormal{rel}} / kms^{-1}$ & $\omega / kms^{-1}kpc^{-1}$ \\ \hline
+        5,5 & 310 & 47,82609 & 18,75674775\\
+        4,5 & 315 & 39,13043 & 19,46612084 \\ 
+        4 & 320 & 34,78261 & 19,58878669 \\ 
+        3,5 & 325 & 30,43478 & 19,69385758 \\ 
+        4 & 330 & 34,78261 & 18,04347826 \\ 
+        - & 335 & 0 & 25 \\ 
+        - & 340 & 0 & 25 \\ 
+        5 & 345 & 43,47826 & 8,201289978 \\ 
+        0 & 350 & 0 & 25 \\ 
+        0 & 355 & 0 & 25 \\ 
+        1,5 & 358,1 & 13,04348 & -14,34069697 \\ 
+        0 & 3 & 0 & 25 \\ 
+        1 & 8 & -8,69565 & 18,75191606 \\ 
+        - & 13 & 0 & 25 \\ 
+        3 & 18 & -26,087 & 16,55808354 \\ 
+        4 & 23 & -34,7826 & 16,09807073 \\ 
+        4 & 28 & -34,7826 & 17,59111489 \\ 
+        4 & 33 & -34,7826 & 18,61364014 \\ 
+        4 & 38 & -34,7826 & 19,35036784 \\ 
+        5 & 43 & -43,4783 & 18,62487311 \\ 
+        6 & 48 & -52,1739 & 17,9793075 \\ 
+        6 & 53 & -52,1739 & 18,46711831 \\ 
+        6,5 & 58 & -56,5217 & 18,33507859 \\ 
+        7 & 63 & -60,8696 & 18,16844899 \\ 
+        7,5 & 68 & -65,2174 & 17,96607777 \\ 
+        7 & 73 & -60,8696 & 18,63491974 \\ 
+        8 & 78 & -69,5652 & 17,88806543 \\ 
+        4,983 & -42,6 & 87 & 20,70713205 \\ 
+    \end{tabular}
+\end{minipage}\\
+Für eine kartesische Darstellung der Wolken mit der Sonne im Zentrum wird der Sonnenabstand $r$ mit folgender Gleichung berechnet:
+\[r = R_0 \cos l + \sqrt{R^2_1 - R^2_0 \sin^2 l}\]
+Nun müssen die Wolken nur noch in kartesische Koordinaten umgerechnet werden ($x = r \cdot \cos (l + 90^\circ)$ und $y= r\cdot \sin ( l + 90^\circ)$).\\\\
+\begin{minipage}{.5\textwidth}
+        \hspace*{-0.2cm}\begin{tabular}{c|c|c|c|}
+            $R_1 / km$ & $r / km$ & $x /km$ & $y / km$ \\ \hline
+            11,75 & 6,169481 & -6,16948 & 7,56E-16 \\ 
+            11,75581 & 5,370137 & -5,3497 & -0,46803826 \\ 
+            12,23704 & 5,527161 & -5,44319 & -0,95978144 \\ 
+            12,27631 & 4,988514 & -4,81853 & -1,29112241 \\ 
+            12,0096 & 4,058322 & -3,81358 & -1,38802795 \\ 
+            12,07522 & 3,753263 & -3,40161 & -1,58619734 \\ 
+            12,16113 & 3,537743 & -3,06378 & -1,7688717 \\ 
+            11,90019 & 2,896359 & -2,37256 & -1,661283 \\ 
+            12,4134 & 3,339932 & -2,55854 & -2,14686673 \\ 
+            12,38032 & 3,091237 & -2,18583 & -2,18583491 \\ 
+            12,35893 & 2,895382 & -1,86112 & -2,217991 \\ 
+            12,08541 & 2,446062 & -1,403 & -2,00369665 \\ 
+            12,3587 & 2,641841 & -1,32092 & -2,28790165 \\ 
+            12,38871 & 2,582497 & -1,09141 & -2,34053705 \\ 
+            12,45289 & 2,577079 & -0,88141 & -2,42166238 \\ 
+            12,58008 & 2,6517 & -0,68631 & -2,56134538 \\ 
+            11,98093 & 2,006344 & -0,3484 & -1,97586348 \\ 
+            10,22826 & 0,229113 & -0,01997 & -0,22824138 \\ 
+            10,22826 & 0,228261 & -4,20E-17 & -2,28E-01 \\ 
+            11,97426 & 1,980553 & 0,172617 & -1,97301646 \\ 
+            11,98093 & 2,006344 & 0,348398 & -1,97586348 \\ 
+            11,99213 & 2,05024 & 0,530641 & -1,98037947 \\ 
+            12,89782 & 3,039151 & 1,039451 & -2,85586788 \\ 
+            11,66856 & 1,813255 & 0,766315 & -1,64336703 \\ 
+            13,21087 & 3,567872 & 1,783936 & -3,08986808 \\ 
+            12,24459 & 2,626572 & 1,50654 & -2,15156143 \\ 
+            13,30589 & 3,989838 & 2,564618 & -3,05639308 \\ 
+            11,003 & 1,359003 & 0,96096 & -0,96096032 \\ 
+            12,0161 & 2,829785 & 2,167741 & -1,81895047 \\ 
+            11,34288 & 2,11025 & 1,728616 & -1,21038983 \\ 
+            11,10684 & 1,954267 & 1,692445 & -0,97713374 \\ 
+            11,00063 & 2,00875 & 1,820545 & -0,84893424 \\ 
+            10,90841 & 2,11976 & 1,991923 & -0,72500056 \\ 
+            10,85843 & 2,372073 & 2,291246 & -0,61393757 \\ 
+            10,69183 & 2,426509 & 2,389645 & -0,42135892 \\ 
+            10,50322 & 2,456692 & 2,447344 & -0,21411486 \\ 
+            10,38043 & 2,784497 & 2,784497 & -6,82E-16 \\
+        \end{tabular}
+    \end{minipage}
+\begin{minipage}{.5\textwidth}
+    \vspace*{-2.1cm}\hspace*{0.2cm}\small{\begin{tabular}{|c|c|c|c}
+        $R_1 / km$ & $r / km$ & $x /km$ & $y / km$ \\ \hline         
+            10,38102 & 3,791336 & 3,776909 & 0,330436704 \\ 
+            12,23704 & 9,000125 & 8,863392 & 1,562855237 \\ 
+            13,22156 & 11,61639 & 11,22057 & 3,006542615 \\ 
+            10,22826 & 7,459397 & 7,00954 & 2,551263922 \\ 
+            13,08265 & 13,66103 & 12,3811 & 5,773401795 \\ 
+            12,16113 & 13,53774 & 11,72403 & 6,768871704 \\ 
+            11,71442 & 14,10993 & 11,55818 & 8,09312363 \\ 
+            12,4134 & 16,19568 & 12,40661 & 10,41038496 \\ 
+            12,16512 & 16,97006 & 11,99965 & 11,99964677 \\ 
+            12,12219 & 17,93808 & 11,53038 & 13,74136643 \\ 
+            12,08541 & 18,8291 & 10,79993 & 15,42389809 \\ 
+            12,66304 & 20,29437 & 10,14719 & 17,57544057 \\ 
+            10,22826 & 18,37741 & 7,766627 & 16,65558579 \\ 
+            10,22826 & 19,0364 & 6,510834 & 17,88836888 \\ 
+            16,10781 & 25,55777 & 6,614839 & 24,68691368 \\ 
+            10,22826 & 19,92786 & 3,460436 & 19,62510794 \\ 
+            10,22826 & 20,15301 & 1,75645 & 20,07631891 \\ 
+            23,9975 & 33,98972 & - & - \\ 
+            10,22826 & 20,20116 & -1,05725 & 20,17347283 \\ 
+            12,41509 & 22,23952 & -3,09514 & 22,02308437 \\ 
+            10,22826 & 19,72153 & -4,43638 & 19,21606574 \\ 
+            13,18293 & 22,3262 & -6,89918 & 21,23347947 \\ 
+            13,34394 & 21,96411 & -8,58206 & 20,21806625 \\ 
+            12,82137 & 20,76041 & -9,74642 & 18,33035414 \\ 
+            12,46349 & 19,59721 & -10,6734 & 16,43560057 \\ 
+            12,20563 & 18,41925 & -11,34 & 14,51456806 \\ 
+            12,45956 & 17,74083 & -12,0992 & 12,97481827 \\ 
+            12,6855 & 16,97214 & -12,6128 & 11,35657908 \\ 
+            12,51477 & 15,65338 & -12,5013 & 9,420437193 \\ 
+            12,56098 & 14,56525 & -12,352 & 7,718404469 \\ 
+            12,6193 & 13,47621 & -12,0074 & 6,118071738 \\ 
+            12,69013 & 12,4105 & -11,5068 & 4,649056952 \\ 
+            12,45604 & 10,90501 & -10,4285 & 3,188316194 \\ 
+            12,71744 & 10,2066 & -9,98356 & 2,122071134 \\ 
+            11,73076 & 7,471377 & -7,41569 & 0,910531821 \\ 
+        \end{tabular}}
+    \end{minipage}\\
+Damit können wir nun unsere Milchstraße darstellen:
+\begin{figure}[h!]
+    \centering
+\begin{tikzpicture}
+    \begin{axis}[xmajorgrids=true, ymajorgrids=true, xlabel=$x$, ylabel=$y$]
+        \addplot[color=blue, only marks, mark=*]table[meta=y]{datensatz.txt};
+        \addplot[color=black, only marks,  mark=x]coordinates{(0,0)} node[left, pos=1]{Sonne};
+    \end{axis}
+\end{tikzpicture}
+\caption[short]{Darstellung mit Sonne im Ursprung}
+\end{figure}\\
+\subsubsection*{Fazit}
+Man kann die Form der Galaxie bereits erahnen! 
+\section{Pulsare und interstellare Materie}
+\subsubsection*{Einführung}
+In diesem Kapitel sollen von drei Pulsaren der Abstand zu Erde berechnet werden.
+\subsubsection*{Auswertung}
+Gegeben sind $\alpha = 4148,8 cm^3 pc^{-1}\textnormal{MHz}^2s$ und $n_e = 0,02cm^{-3}$. Zunächst wird für jeden Pulsar der Abstand zweier, innerhalb einer Frequenz aufeinanderfolgender Radiopulse gemessen, sowie die Verschiebung $V$ eines Pulses für alle Kombinationen $v_a < v_b$ aus je zwei der gezeigzen Frequenzen $v_a < v_b$. Des Weiteren war der Kalibrationsfaktor anhand der gebenen $1$-$s$-Skala zu bestimmen (Faktor $0,057\pm 0,001 s mm^{-1}$). Alle gemessenen Abstände sind dann in Zeiten umzurechnen. Die Verschiebung eines Pulses über verschiedene Frequenzen ergibt sich über:
+\[\Delta t = \frac{e^2}{8 \pi \varepsilon_0 m_e c}\cdot n_e d = \alpha \cdot n_e d\cdot \Biggl(\frac{1}{v^2_a}-\frac{1}{v^2_b}\Biggr)\]\\
+Der Klammerterm soll seperat berechnet werden (wobei $v_a < v_b$). Das Produkt $n_e d$ wird Dispersionsmaß genannt, dies war dann für jeden Pulsar zu bestimmen und mitteln. Dann gilt es noch für die Pulsare $d$ in $pc$ zu berechnen, indem man die gegebene Elektronendichte annimmt. 
+Die Auswertung wird in folgenden Tabellen zusammengefasst:
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{c|c|c|c}
+        Pulsar & $v_{1,2,3,4} /$ MHz & Abstand Radiopulse $/mm$ & Periode $P/s$ \\ \hline
+        PSR 0809+74 & 234 & 36 & 1,2857 \\ 
+        ~ & 256 & 36 & 1,2857 \\ 
+        ~ & 405 & 36,2 & 1,2929 \\\hline 
+        PSR0950+08 & 234 & 7 & 0,2509 \\ 
+        ~ & 256 & 7 & 0,2509 \\ 
+        ~ & 405 & 6,9 & 0,2473 \\ \hline
+        PSR0329+54 & 234 & 20,4 & 0,7286 \\ 
+        ~ & 256 & 20,1 & 0,7179 \\ 
+        ~ & 405 & 19,9 & 0,7107 \\ 
+        ~ & 1420 & 19,8 & 0,7071 \\ 
+    \end{tabular}
+\end{table}\\
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{c|c|c|c|c|c}
+        Pulsare & $v_{1,2,3,4}/$ MHz & $V /mm$ & $\Delta t /s$ & $ \frac{1}{v^2_a} - \frac{1}{v_b^2} / \textnormal{MHz}^{-1}$ & $n_d \cdot d /pc \cdot cm^{-3}$ \\ \hline
+        PSR 0809+74 & 234;256 & 1,8 & 0,0643 & 3,004$\cdot 10^{-6}$ & 5,158 \\ 
+        ~ & 234;405 & 8,5 & 0,3036 & 1,2166$\cdot 10^{-5}$ & 6,0143 \\ 
+        ~ & 256;405 & 6,7 & 0,2393 & 9,1622$\cdot 10^{-6}$ & 6,295 \\ \hline
+        PSR0950+08 & 234;256 & 1,3 & 0,0466 & 3,004$\cdot 10^{-6}$ & 3,7386 \\ 
+        ~ & 234;405 & 2,7 & 0,0968 & 1,2166$\cdot 10^{-5}$ & 1,9173 \\ 
+        ~ & 256;405 & 1,4 & 0,0502 & 9,1622$\cdot 10^{-6}$ & 1,3201 \\ \hline
+        PSR0329+54 & 234;256 & 9,3 & 0,3321 & 3,004$\cdot 10^{-6}$ & 26,6499 \\ 
+        ~ & 234;405 & 38 & 1,3571 & 1,2166$\cdot 10^{-5}$ & 26,8873 \\ 
+        ~ & 234;1420 & 55 & 1,9643 & 1,7767$\cdot 10^{-5}$ & 26,6484 \\ 
+        ~ & 256;405 & 28,7 & 1,025 & 9,1622$\cdot 10^{-6}$ & 26,9652 \\ 
+        ~ & 256;1420 & 45,7 & 1,6321 & 1,4763$\cdot 10^{-5}$ & 26,648 \\ 
+        ~ & 405;1420 & 17 & 0,6071 & 5,6007$\cdot 10^{-6}$ & 26,1292 \\ 
+    \end{tabular}
+\end{table}\\
+So ergibt sich für PSR 0809+74 ein gemitteltes Dispersionsmaß von $5,8224 pc \cdot cm^{-3}$, für PSR0950+08 $2,3253 pc \cdot cm^{-3}$ und für PSR0329+54 $26,665 pc \cdot cm^{-3}$. Nun können wir die Dispersion $d$ für die Pulsare berechnen, ebenfalls aufgelistet sind nochmal die gemittelten Perioden:
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{c|c|c|c}
+        Pulsar & $n_e \cdot d / pc \cdot cm^{-3}$ & $d / pc$ & $P / s$ \\ \hline
+        PSR 0809+74 & 5,8224 & 291,12 & 1,2881 \\ 
+        PSR0950+08 & 2,3253 & 116,27 & 0,2497 \\ 
+        PSR0329+54 & 26,655 & 1332,7 & 0,7161 \\ 
+    \end{tabular}
+\end{table}\\
+Als letztes war die Elektronendichte $n_e$ zwischen dem Krebsnebel und der Erde zu berechnen, angegeben war ein Abstand von $d \approx 2490 pc$ sowie ein Dispersionsmaß $n_e d = 56,79 pc \ cm^{-3}$. Damit: $\displaystyle \frac{n_e}{d} \cdot d = 0,0228 cm^{-3}$
+\newpage\noindent
+\subsubsection*{Fazit}
+Es bestehen Abweichungen zum Literaturwert. Dies könnte unter anderem daran liegen, dass die geforderte Genauigkeit von $0,1mm$ nicht mit einem Geodreieck erfüllt werden konnte. Dennoch sind die Ergebnisse interessant und Pulsare wahnsinnig faszinierend.
+\section{Farben-Helligkeitsdiagramm der Hyaden}
+\subsubsection*{Beschreibung}
+Ziel dieses Kapitels war es, die Entfernung $d$ des Hyadenhaufens zum Beobachter zu bestimmen.
+\subsubsection*{Auswertung}
+Die in Tabelle 10.2 und Tabelle 10.3 werden in ein Diagramm eingetragen. Die Punkte $B$-$V \in [0,5;1]$ sind nahezu prarallel, wir legen daher Ausgleichsgeraden darüber. Wir erhalten die beiden Ausgleichsgeraden $y_{\textnormal{Hyaden}} = 4,8x + 5$ und $y_{\textnormal{Hauptreihe}} = 4,8 x + 1,75$. Zu beachten ist, dass die Helligkeit nach unten hin ansteigt, der Graph ist daher an der $x$-Achste gespiegelt.
+\begin{figure}[h!]
+    \centering
+\begin{tikzpicture}
+    \begin{axis}[xmajorgrids=true, ymajorgrids=true, xlabel=$B$-$V$, ylabel=$M_v$, y dir=reverse]
+        \addplot[color=orange, only marks, mark=*]table[meta=mv]{hyaden.txt};
+        \addplot[color=cyan, only marks, mark=*]table[meta=mv]{hauptsterne.txt};
+        \addplot[color=red, only marks, mark=*]table[meta=mv]{hyElement.txt};
+        \addplot[color=blue, only marks, mark=*]table[meta=mv]{hsElement.txt};
+        \addplot[color=red, dashed, domain=0:1.5]{4.8*x+5};
+        \addplot[color=blue, dashed, domain=0:1.5]{4.8*x+1.575};
+        \node[color=cyan] at (axis cs:1.21, 17) {Hauptreihen-Sterne};
+        \node[color=orange] at (axis cs:0.5, 12) {Hyaden-Sternhaufen};
+    \end{axis}
+\end{tikzpicture}
+\caption{FHD mit $B$-$V$ als $x$-Achse und $M_v$ als $y$-Achse}
+\end{figure}\\
+Der Abstand der Ausgleichsgeraden beträgt $|5-1,75|= 3,25 m_v$. Bei diesem Entfernungsmodul entspricht $m$ dem Helligkeitswert der Hyaden und $M$ dem der Hauptreihensterne. Wir subtrahieren dieses Modul von den Werten der Hyaden, ausßerdem werden waagrechte Geraden zu den Werten aus Tab. 10.3 auf das Diagramm gelegt.
+\newpage\noindent
+\begin{figure}[h!]
+    \centering
+\begin{tikzpicture}
+    \begin{axis}[xmajorgrids=true, ymajorgrids=true, xmax=2.4, xlabel=$B$-$V$, ylabel=$M_v$, y dir=reverse, width=16cm]
+        \addplot[color=orange, only marks, mark=*]table[meta=mv2]{hyaden2.txt};
+        \addplot[color=cyan, only marks, mark=*]table[meta=mv]{hauptsterne.txt};
+        \node[color=cyan] at (axis cs:1.21, 17) {Hauptreihen-Sterne};
+        \node[color=orange] at (axis cs:0.5, 9) {Hyaden-Sternhaufen};
+        \addplot[color=darkgray, domain=-0.5:2, dashdotted]{-3}node[right, pos=1]{\tiny{$M_v = -3,0$}};
+        \addplot[color=darkgray, domain=-0.5:2, dashdotted]{-2.1}node[right, pos=1]{\tiny{$M_v = -2,1$}};
+        \addplot[color=darkgray, domain=-0.5:2, dashdotted]{-1.6}node[right, pos=1]{\tiny{$M_v = -1,6$}};
+        \addplot[color=darkgray, domain=-0.5:2, dashdotted]{-1.2}node[right, pos=1]{\tiny{$M_v = -1,2$}};        
+        \addplot[color=darkgray, domain=-0.5:2, dashdotted]{-0.9}node[right, pos=1]{\tiny{$M_v = -0,9$}};
+        \addplot[color=darkgray, domain=-0.5:2, dashdotted]{-0.2}node[right, pos=1]{\tiny{$M_v = -0,2$}};
+        \addplot[color=darkgray, domain=-0.5:2, dashdotted]{1.7}node[right, pos=1]{\tiny{$M_v = +1,7$}};
+        \addplot[color=darkgray, domain=-0.5:2, dashdotted]{2.0}node[right, pos=1]{\tiny{$M_v = +2,0$}};
+        \addplot[color=darkgray, domain=-0.5:2, dashdotted]{2.8}node[right, pos=1]{\tiny{$M_v = +2,8$}};
+        \addplot[color=darkgray, domain=-0.5:2, dashdotted]{3.7}node[right, pos=1]{\tiny{$M_v = +3,7$}};
+        \addplot[color=darkgray, domain=-0.5:2, dashdotted]{4.2}node[right, pos=1]{\tiny{$M_v = +4,2$}};
+        \addplot[color=darkgray, domain=-0.5:2, dashdotted]{4.5}node[right, pos=1]{\tiny{$M_v = +4,5$}};
+        \addplot[color=darkgray, domain=-0.5:2, dashdotted]{4.8}node[right, pos=1]{\tiny{$M_v = +4,8$}};
+    \end{axis}
+\end{tikzpicture}
+\caption{FHD mit um $|M-m|$ vertikal verschobenen Hyaden}
+\end{figure}\\
+Die beiden Geraden bei $M_v = -0,2$ und $M_v = 1,7$ grenzen den Abknickpunkt nun ein, nach der Tabelle liegt das Alter also zwischen $t_1 = 2 \cdot 10^8 a$ und $t_2 = 8 \cdot 10^8a$. Dies ist nach dem Literaturwert $t= 6,25 \cdot 10^{8}a$ realistisch. Bleibt nur noch die Distanz zu bestimmen. Für diese gilt:
+\[d = 10^{0,2 \cdot (m-M)} \cdot 10pc\]
+Mit meinen Werten ergibt sich damit: $d=44,67pc$.
+\subsubsection*{Fazit}
+Die bestimmte Distanz weicht vom Literaturwert $d_{\textnormal{Lit}} = 47pc$ um $4,96\%$ ab. Auch das bestimmte Alter ist im korrekten Bereich.
+\newpage\noindent\section{Bahnbewegung eines Doppelsterns}\
+\subsubsection*{Beschreibung}
+Beobachtungsgegenstand ist das Doppelsternsystem Kruger 60. Durch Beobachtung von Bahn- und Eigenbewegungen soll die Gesamtmasse ermittelt werden.
+\subsubsection*{Auswertung}
+Zunächst wird in den Abbildungen 11.6 und 11.7 der Positionswinkel $\alpha$ des Secondary $B$ bezüglich des Primary $A$ vermessen. Ebenfalls der Abstand $a$ der beiden Komponenten soll gemessen werden und dazu natürlich die Kalibrationsskala. In Abb. 11.6 entspricht $1''$ etwa $11mm$, also ist der Kalibrationsfaktor $\frac{1}{11}''mm^{-1}$. In Abb 11.7 beträgt der Faktor $1,25 ''mm^{-1}$. Zur Vereinfachung der Darstellung werden die Daten von Abb. 11.7 in Dezimaljahre umgerechnet. Die Abstände werden in den Beobachtungsabstand $l$ in $''$ umgerechnet.
+Ziel ist es, alle Datenpunkte in ein Koordinatensystem einzuzeichnen, mit dem Primary im Ursprung. Zur Umrechnung in kartesische Koordinaten gilt:
+\[x = l \cdot \cos (\alpha + 90^\circ) \ \ \textnormal{und} \ \ y = l \cdot \sin(\alpha+90^\circ)\]
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{c|c|c|c|c|c}
+        Dezimaljahr & $\alpha / \circ$ & $a/mm$ & $l / ''$ & $x/''$ & $y/''$ \\ \hline
+        1968,74 & 335 & 17 & 1,545454545 & 0,653137314 & 1,400657489 \\ 
+        1970,73 & 295 & 17 & 1,545454545 & 1,400657489 & 0,653137314 \\ 
+        1972,75 & 256 & 18 & 1,636363636 & 1,587756643 & -0,395872193 \\ 
+        1974,79 & 223 & 20 & 1,818181818 & 1,239997018 & -1,329734003 \\ 
+        1976,86 & 202 & 23 & 2,090909091 & 0,783268332 & -1,93865715 \\ 
+        1933,81 & 180 & 1,5 & 1,875 & -3,44573$\cdot 10^{-16}$ & -1,875 \\ 
+        1938,88 & 155 & 2,5 & 3,125 & -1,320682068 & -2,832211834 \\ 
+        1944,55 & 134 & 2,6 & 3,25 & -2,337854351 & -2,257639704 \\ 
+        1948,93 & 116 & 3 & 3,75 & -3,370477674 & -1,6438918 \\ 
+        1955,75 & 89 & 2,5 & 3,125 & -3,124524047 & 0,05453877 \\ 
+        1962,92 & 45 & 1,7 & 2,125 & -1,50260191 & 1,50260191 \\ 
+        1965,88 & 16 & 1 & 1,25 & -0,344546695 & 1,20157712 \\ 
+    \end{tabular}
+\end{table}\\
+Zunächst plotten wir diese Daten und legen eine Ellipse (lila) darüber, im Ursprung $(0,0)$ ist ein Brennpunkt dieser Ellipse. Wie bereits gehabt liegt dort auch der Primary. Der Mittelwert der Beobachtungsabstände beträgt $\bar{l} = 2,261''$, wir zeichnen einen blaugrünen Kreis mit Radius $\bar{l}$ ein und verschieben diesen so, dass sich eine gute Annäherung für die Datenpunkte ergibt. Der Mittelpunkt dieses Kreises $M$ ist auch der Mittelpunkt der Bewegungsellipse.
+Der Mittelpunkt $M$ liegt bei $(-1; -0,65)\cdot 1''$. Verbinden wir $M$ und $F$ so sind die Schnittpunkte mit der Ellipse das Periastron $P$ sowie das Apastron $A$.
+\newpage\noindent
+\begin{figure}[ht!]
+    \centering
+\begin{tikzpicture}
+    \begin{axis}[xmajorgrids=true, ymajorgrids=true, xlabel=$x$, ylabel=$y$]
+        \addplot[color=magenta, only marks, mark=*]table[meta=y]{doppelstern.txt};
+        \addplot[color=black, only marks,  mark=x]coordinates{(0,0)}node[right, pos=1]{F};
+        \addplot[color=lightgray, loosely dashed, domain=-3.5:1.9]{0.65*x};
+        \draw[purple] (axis cs:-1,-0.6) ellipse [rotate=110, x radius=2.1, y radius=2.75];
+        \draw[teal] (axis cs:-1,-0.65) circle [radius=2.261];
+        \addplot[color=black, only marks,  mark=x]coordinates{(-1,-0.65)}node[left, pos=1]{M};
+        \addplot[color=blue, only marks,  mark=Mercedes star]coordinates{(-3.29, -2.133)}node[left, pos=1]{$A$};
+        \addplot[color=blue, only marks,  mark=Mercedes star flipped]coordinates{(1.34, 0.88)}node[right, pos=1]{$P$};
+    \end{axis}
+\end{tikzpicture}
+\caption{Gemeinsames Koordinatensystem}
+\end{figure}\\
+Das Apastron $A$ liegt bei $(-3,29''; -2,13'')$ während das Periastron $P$ bei $(1,34''; 0,88'')$ liegt. Die Strecken $e=\overline{MF}$ und $a=\overline{MP}$ sind nun eine leichte geometrische Aufgabe. Mit Pythagoras ist die Strecke $\overline{MF}=\sqrt{1^2+(-0,65)^2} \approx 1,19''$ und $\overline{MP} = \overline{MF} + \overline{FP} \approx 2,80''$, wobei $\overline{FP}=\sqrt{(1,34)^2+(0,88)^2}$. Mit Gl. 11.2 und Gl. 11.3 lässt sich nun die Fläche $O$ der Bahnellipse berechnen. Es gilt:\\\\
+\[\varepsilon = \frac{e}{a} \approx 0,425'' \ \ \textnormal{und} \ \ O=\pi\cdot a^2 \cdot \sqrt{1-\varepsilon^2} \approx 22,30''\]\\\\
+Um die Flächengeschwindigkeit $\omega$ zu berechnen, wird aus fünf aufeinanderfolgenden Datenpaaren der
+überstrichene Winkel $\Delta \alpha$ sowie die Zeitdifferenz $\Delta t$ besimmt. Die Flächengeschwindigkeit wird gemittelt und die
+Umlaufperiode $P$ berechnet. Hierbei gilt:\\\\
+\[\omega=\frac{l_i l_j \cdot \pi}{360}\cdot \frac{\Delta \alpha}{\Delta t} \ \ \textnormal{sowie} \ \ P=\frac{O}{\Omega}\]\\\\
+Der Mittelwert $\overline{\omega}$ beträgt $0,37552856[\omega]$. Damit $P \approx 59,37a$ (Tabelle siehe Seite 22).
+\newpage\noindent\begin{table}[!ht]
+    \centering
+    \begin{tabular}{c|c}
+        ~ & $\omega / [\omega]$  \\\hline
+        Abb. 11.6 & 0,418954403  \\
+        ~ & 0,426085412  \\ 
+        ~ & 0,419999018  \\ 
+        ~ & 0,33656487 \\ \hline
+        Abb. 11.7 & 0,252151296  \\ 
+        ~ & 0,32813528   \\ 
+        ~ & 0,437519084  \\ 
+        ~ & 0,404559261  \\ 
+        ~ & 0,355788412  \\ 
+    \end{tabular}
+\end{table}\\
+Mit $P\approx 59,37a$ und dem dritten Keplerschen Gesetz können wir nun die gesamtmasse berechnen. Gegeben ist $d=4au/''$. Es gilt:
+\[\frac{M}{M_\odot} \approx \frac{(a\cdot d)^3}{P^2} \cdot 1 \frac{a^2}{au^3} \Leftrightarrow M \approx \frac{(a\cdot d)^3 \cdot M_\odot}{P^2} \cdot 1 \frac{a^2}{au^3} \approx 0,79 M_\odot \]
+\subsubsection*{Fazit}
+Die recht hohe Abweichung vom Literaturwert lässt sich durch die Anhäufung von Messungenauigkeiten und Rundungen erklären. Es wird mehrfach gemessen und auf-/ abgerundet, dies führt Fehlern, die mit jedem neuen Fehler größer werden. Insgesamt war aber auch dieses Expirment spannend, denn aus reiner Beobachtung konnten wir zahlreiche Messdaten von Kruger 60 herleiten.
+\newpage\noindent
+\section{Quellen}
+Alle Messdaten, Gleichungen und sonstiges Material wurden den Praktikumsunterlagen entnommen. Abbildung 3 stammt vom Aufgabenblatt zu Kapitel 6 (Bildautor: Dr. Chris Tenzer). Alle Plots sowie das gesamte restliche Protokoll wurden vollständig in \LaTeX \ angefertigt.\\\\
+Die Quelldatei sowie Datensätze für die meisten Plots sind auf \href{https://github.com/Flog7877/Astronomisches-Praktikum}{GitHub} zu finden. 
+
+\end{document}
